@@ -1,0 +1,649 @@
+---
+// src/components/Header.astro
+---
+<header class="site-header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <img src="/logo.jpg" alt="Don Bosco School Logo" class="logo-img" />
+      <div class="logo-text">
+        <span class="school-name">Don Bosco</span>
+        <span class="school-subtitle">English Medium School Shirva</span>
+      </div>
+    </a>
+    
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+      <span class="hamburger-line top"></span>
+      <span class="hamburger-line middle"></span>
+      <span class="hamburger-line bottom"></span>
+    </button>
+    
+    <div class="nav-overlay" id="nav-overlay"></div>
+    
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="/" class="nav-link">Home</a></li>
+        
+        <li class="has-dropdown">
+          <a href="#about" class="nav-link">About Us</a>
+          <ul class="dropdown">
+            <li><a href="#" class="nav-link">Know your Don Bosco</a></li>
+            <li><a href="#" class="nav-link">School Anthem</a></li>
+            <li><a href="#" class="nav-link">History</a></li>
+            <li><a href="#" class="nav-link">School Management</a></li>
+            <li><a href="#" class="nav-link">Correspondents</a></li>
+            <li><a href="#" class="nav-link">Principal</a></li>
+            <li class="has-dropdown is-nested">
+              <a href="#" class="nav-link">Messages</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">Principal's Message</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="nav-link">Awards and Recognition</a></li>
+          </ul>
+        </li>
+        
+        <li class="has-dropdown">
+          <a href="#" class="nav-link">CBSE</a>
+          <ul class="dropdown">
+            <li><a href="#" class="nav-link">Mandatory Public Disclosure</a></li>
+            <li><a href="#" class="nav-link">CBSE Requirements</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="#facilities" class="nav-link">Facilities</a></li>
+        
+        <li class="has-dropdown">
+          <a href="#" class="nav-link">Academics</a>
+          <ul class="dropdown">
+            <li><a href="#" class="nav-link">Annual Report</a></li>
+            <li><a href="#" class="nav-link">Curriculum</a></li>
+            <li class="has-dropdown is-nested">
+              <a href="#" class="nav-link">Activities</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">Co Curricular Activities</a></li>
+                <li><a href="#" class="nav-link">Associations & Clubs</a></li>
+                <li><a href="#" class="nav-link">Sports & Games</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown is-nested">
+              <a href="#" class="nav-link">Staff</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">Teaching Staff</a></li>
+                <li><a href="#" class="nav-link">Auxiliary Staff</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown is-nested">
+              <a href="#" class="nav-link">Associations</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">PTA</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="nav-link">Achievements</a></li>
+            <li><a href="#" class="nav-link">Board Results</a></li>
+          </ul>
+        </li>
+        
+        <li class="has-dropdown">
+          <a href="#" class="nav-link">News & Events</a>
+          <ul class="dropdown">
+            <li class="has-dropdown is-nested">
+              <a href="#events" class="nav-link">Events</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">Activities</a></li>
+                <li><a href="#" class="nav-link">KG Activities</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="nav-link">Students Gallery</a></li>
+            <li class="has-dropdown is-nested">
+              <a href="#" class="nav-link">Gallery</a>
+              <ul class="nested-menu">
+                <li><a href="#" class="nav-link">Photo Gallery</a></li>
+                <li><a href="#" class="nav-link">Video Gallery</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="nav-link">Academic Calendar</a></li>
+            <li><a href="#" class="nav-link">School Magazine</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        
+        <li class="has-dropdown">
+          <a href="#" class="nav-link">Alumni</a>
+          <ul class="dropdown">
+            <li><a href="#" class="nav-link">Alumni Testimonials</a></li>
+            <li><a href="#" class="nav-link">Alumni Achievers Hall of Fame</a></li>
+          </ul>
+        </li>
+        
+        <li class="mobile-actions">
+          <a href="#admissions" class="btn btn-primary nav-link">Admissions Open</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions desktop-actions">
+      <a href="#admissions" class="btn btn-primary">Admissions</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mainNav = document.getElementById('main-nav');
+    const overlay = document.getElementById('nav-overlay');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const dropdownParents = document.querySelectorAll('.has-dropdown > a, .is-nested > a');
+    
+    const toggleMenu = () => {
+      menuBtn?.classList.toggle('active');
+      mainNav?.classList.toggle('active');
+      overlay?.classList.toggle('active');
+      document.body.style.overflow = mainNav?.classList.contains('active') ? 'hidden' : '';
+    };
+    
+    menuBtn?.addEventListener('click', toggleMenu);
+    overlay?.addEventListener('click', toggleMenu);
+    
+    // Mobile Accordion Logic
+    dropdownParents.forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1080) {
+          e.preventDefault();
+          const parentItem = link.parentElement;
+          parentItem?.classList.toggle('expanded');
+        }
+      });
+    });
+    
+    // Close menu when clicking leaf links
+    navLinks.forEach(link => {
+      if (link.parentElement && !link.parentElement.classList.contains('has-dropdown') && !link.parentElement.classList.contains('is-nested')) {
+        link.addEventListener('click', () => {
+          if (mainNav?.classList.contains('active')) {
+            toggleMenu();
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 80px;
+    width: 100%;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 85%;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .logo-img {
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  
+  .school-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    color: var(--primary-color);
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .school-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    z-index: 1001;
+    padding: 10px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--bg-dark);
+    margin: 5px auto;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu-btn.active .hamburger-line.top {
+    transform: translateY(7px) rotate(45deg);
+  }
+  
+  .mobile-menu-btn.active .hamburger-line.middle {
+    opacity: 0;
+  }
+  
+  .mobile-menu-btn.active .hamburger-line.bottom {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .nav-overlay.active {
+    opacity: 1;
+  }
+  
+  @media (min-width: 1081px) {
+    .nav-overlay {
+      display: block;
+      top: 80px;
+      height: calc(100vh - 80px);
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 90;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+    }
+    
+    .site-header:has(.main-nav .has-dropdown:hover) .nav-overlay {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s ease, visibility 0s linear 0s;
+    }
+  }
+  
+  .mobile-actions {
+    display: none !important;
+  }
+  
+  .main-nav > ul {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .main-nav > ul > li {
+    position: relative;
+  }
+  
+  .main-nav > ul > li > a {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    transition: color var(--transition-fast);
+    position: relative;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    min-height: 44px; /* Touch target */
+  }
+  
+  .main-nav > ul > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-normal);
+  }
+  
+  .main-nav > ul > li > a:hover {
+    color: var(--primary-color);
+  }
+  
+  .main-nav > ul > li > a:hover::after {
+    width: 100%;
+  }
+
+  /* Dropdown Styles */
+  .main-nav .has-dropdown > a {
+    gap: 4px;
+  }
+  
+  .main-nav .has-dropdown > a::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+    order: 2;
+  }
+  
+  .main-nav .has-dropdown:hover > a::before {
+    transform: rotate(180deg);
+  }
+  
+  .main-nav .has-dropdown::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    bottom: -15px;
+    left: 0;
+  }
+  
+  .main-nav .dropdown {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: -20px;
+    background: #fff;
+    min-width: 260px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    margin: 0;
+    list-style: none;
+    z-index: 1000;
+  }
+  
+  .main-nav .dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 40px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    transform: rotate(45deg);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    border-left: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .main-nav .has-dropdown:hover > .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+  }
+  
+  /* Nested Dropdown */
+  .main-nav .is-nested {
+    position: relative;
+  }
+  
+  .main-nav .is-nested > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .main-nav .is-nested > a::after {
+    display: none;
+  }
+  
+  .main-nav .is-nested > a::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    transition: transform 0.3s ease;
+    margin-left: auto;
+  }
+  
+  .main-nav .is-nested:hover > a::before {
+    transform: translateX(3px);
+  }
+  
+  .main-nav .nested-menu {
+    position: absolute;
+    top: -16px;
+    left: calc(100% + 28px);
+    background: #fff;
+    min-width: 240px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    margin: 0;
+    list-style: none;
+    z-index: 1000;
+  }
+  
+  .main-nav .nested-menu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -28px;
+    width: 28px;
+    height: 100%;
+  }
+  
+  .main-nav .is-nested:hover > .nested-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+  }
+  
+  .main-nav .dropdown a, .main-nav .nested-menu a {
+    padding: 12px 16px;
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  
+  .main-nav .dropdown a:hover, .main-nav .nested-menu a:hover {
+    background-color: rgba(255, 182, 6, 0.08);
+    color: var(--primary-color);
+  }
+  
+  /* Mobile Menu Styles */
+  @media (max-width: 1080px) {
+    .header-container { padding: 0 15px; gap: 10px; }
+    
+    .mobile-menu-btn { display: block; }
+    .nav-overlay { display: block; pointer-events: none; }
+    .nav-overlay.active { pointer-events: auto; }
+    
+    .desktop-actions { display: none; }
+    .mobile-actions { 
+      display: block !important; 
+      margin-top: 20px;
+      width: 100%;
+    }
+    .mobile-actions .btn {
+      width: 100%;
+      text-align: center !important;
+      justify-content: center !important;
+    }
+    
+    .main-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 400px;
+      height: 100vh;
+      background: #ffffff;
+      padding: 100px 20px 40px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+    
+    .main-nav.active {
+      right: 0;
+    }
+    
+    .main-nav > ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+    
+    .main-nav > ul > li {
+      width: 100%;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .main-nav > ul > li > a {
+      padding: 15px 0;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    
+    .main-nav > ul > li > a::after { display: none; }
+    
+    .main-nav .has-dropdown > a {
+      padding-right: 0;
+    }
+    
+    .main-nav .has-dropdown > a::before {
+      position: static;
+      margin-top: 0;
+      margin-left: auto;
+      order: 2;
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+    
+    .main-nav .has-dropdown.expanded > a::before,
+    .main-nav .is-nested.expanded > a::before {
+      transform: rotate(180deg);
+    }
+    
+    .main-nav .is-nested > a::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+    
+    .main-nav .dropdown, .main-nav .nested-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+      display: none;
+      background: transparent;
+    }
+    
+    .main-nav .has-dropdown:hover > .dropdown,
+    .main-nav .is-nested:hover > .nested-menu {
+      display: none;
+    }
+    
+    .main-nav .has-dropdown.expanded > .dropdown,
+    .main-nav .is-nested.expanded > .nested-menu {
+      display: flex;
+    }
+    
+    .main-nav .dropdown {
+      padding-left: 15px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .main-nav .nested-menu {
+      padding-left: 15px;
+      margin-top: 5px;
+      border-left: 2px solid rgba(0,0,0,0.05);
+      background: rgba(0,0,0,0.02);
+      border-radius: 0 0 0 8px;
+    }
+    
+    .main-nav .dropdown a, .main-nav .nested-menu a {
+      padding: 12px 15px;
+      border-radius: 4px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .school-name { font-size: 1.1rem; }
+    .school-subtitle { 
+      font-size: 0.65rem; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .logo-img { height: 40px; }
+  }
+</style>

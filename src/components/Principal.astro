@@ -1,0 +1,177 @@
+---
+// src/components/Principal.astro
+---
+<section class="principal-section section-padding">
+  <div class="container">
+    <div class="principal-card glass-card">
+      <div class="principal-grid">
+        <div class="principal-content">
+          <span class="section-subtitle">Principal's Message</span>
+          <h2 class="section-title">Rev. Fr. Rolwyn Aranha</h2>
+          <div class="quote-icon">
+            <svg viewBox="0 0 24 24" fill="var(--primary-color)" width="48" height="48">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+          </div>
+          <div class="principal-text">
+            <p class="highlight-quote">"An investment in knowledge pays the best interest." <br/><strong>- Benjamin Franklin</strong></p>
+            <p>
+              Welcome to Don Bosco School, a vibrant and dynamic community dedicated to providing exceptional education. We believe in the holistic development of our students, nurturing them to grow in truth and purity.
+            </p>
+          </div>
+          <div class="mt-30">
+            <a href="/principal-message" class="btn btn-primary">Read Full Message</a>
+          </div>
+        </div>
+        
+        <div class="principal-image-wrapper">
+          <div class="image-frame">
+            <img src="/about/principal.jpg" alt="Rev. Fr. Rolwyn Aranha" class="principal-image" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .principal-section {
+    background-color: var(--bg-light);
+    position: relative;
+  }
+  
+  /* Abstract background shape */
+  .principal-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background-color: var(--primary-light);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .principal-card {
+    padding: 0;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  
+  .principal-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+  }
+  
+  .principal-content {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .quote-icon {
+    margin: 30px 0 20px;
+    opacity: 0.3;
+  }
+  
+  .highlight-quote {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bg-dark);
+    margin-bottom: 20px;
+    font-style: italic;
+    font-family: var(--font-heading);
+  }
+  
+  .principal-text p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .principal-image-wrapper {
+    background-color: var(--primary-color);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Decorative pattern */
+  .principal-image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+  
+  .image-frame {
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+  }
+  
+  .principal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .mt-30 {
+    margin-top: 30px;
+  }
+  
+  @media (max-width: 992px) {
+    .principal-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .principal-image-wrapper {
+      order: -1;
+      padding: 60px 20px;
+    }
+    
+    .principal-content {
+      padding: 40px 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .principal-content {
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .highlight-quote {
+      font-size: 1.15rem;
+    }
+    .principal-text p {
+      font-size: 1rem;
+    }
+    .quote-icon {
+      margin: 20px auto;
+    }
+    .mt-30 .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+// src/components/Facilities.astro
+const facilities = [
+  { title: "Physical Laboratories", image: "/facilities/physical_labs.jpg" },
+  { title: "Xperimentor Lab", image: "/facilities/xperimentor.jpg" },
+  { title: "Adventure Classes", image: "/facilities/adventure.jpg" },
+  { title: "AI & Robotics", image: "/facilities/robotics.jpg" },
+];
+---
+<section id="facilities" class="facilities-section section-padding">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-subtitle">School Facilities</span>
+      <h2 class="section-title">Explore Our Advanced Learning Environments</h2>
+    </div>
+    
+    <div class="facilities-grid">
+      {facilities.map((facility) => (
+        <div class="facility-card">
+          <div class="facility-img-wrapper">
+            <img src={facility.image} alt={facility.title} class="facility-img" loading="lazy" />
+            <div class="facility-overlay"></div>
+          </div>
+          <div class="facility-content">
+            <h3 class="facility-title">{facility.title}</h3>
+            <span class="facility-link">Explore <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="text-center mt-40">
+      <a href="/facilities" class="btn btn-outline">View All Facilities</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .facilities-section {
+    background-color: var(--bg-light);
+  }
+  
+  .section-header {
+    margin-bottom: 50px;
+  }
+  
+  .facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  
+  .facility-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    cursor: pointer;
+    background: var(--bg-color);
+  }
+  
+  .facility-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .facility-img-wrapper {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .facility-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+  
+  .facility-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(17, 17, 17, 0.8) 0%, rgba(17, 17, 17, 0) 100%);
+    opacity: 0.6;
+    transition: opacity var(--transition-normal);
+  }
+  
+  .facility-card:hover .facility-img {
+    transform: scale(1.1);
+  }
+  
+  .facility-card:hover .facility-overlay {
+    opacity: 0.8;
+  }
+  
+  .facility-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+  }
+  
+  .facility-title {
+    color: var(--text-light);
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+  }
+  
+  .facility-link {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-normal);
+  }
+  
+  .facility-card:hover .facility-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .mt-40 {
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 1024px) {
+    .facilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .facilities-grid {
+      grid-template-columns: 1fr;
+    }
+    .facility-link {
+      opacity: 1; /* Always show links on mobile since there is no hover */
+      transform: translateY(0);
+    }
+  }
+</style>

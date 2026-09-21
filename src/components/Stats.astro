@@ -1,0 +1,286 @@
+---
+// src/components/Stats.astro
+const stats = [
+  { 
+    label: 'Staff', 
+    value: '48', 
+    prefix: '', 
+    suffix: '',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>'
+  },
+  { 
+    label: 'Students', 
+    value: '950', 
+    prefix: '', 
+    suffix: '',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>'
+  },
+  { 
+    label: 'Other Staff', 
+    value: '10', 
+    prefix: '', 
+    suffix: '',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
+  },
+  { 
+    label: 'Alumni', 
+    value: '3000', 
+    prefix: '', 
+    suffix: '+',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>'
+  }
+];
+---
+<section class="stats-section section-padding">
+  <!-- Removed Odometer for robust vanilla JS counter -->
+  
+  <div class="container">
+    <div class="stats-wrapper glass-card">
+      <div class="stats-grid">
+        {stats.map((stat) => (
+          <div class="stat-card">
+            <div class="stat-icon" set:html={stat.icon}></div>
+            <div class="stat-content">
+              <div class="stat-value-wrapper">
+                <span class="stat-prefix">{stat.prefix}</span>
+                <span class="stat-value counter" data-target={stat.value}>0</span>
+                <span class="stat-suffix">{stat.suffix}</span>
+              </div>
+              <h3 class="stat-label">{stat.label}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Custom vanilla JS counter (replaces buggy Odometer)
+    const animateValue = (obj: HTMLElement, start: number, end: number, duration: number) => {
+      let startTimestamp: number | null = null;
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // Easing out effect for smooth deceleration
+        const easeOut = 1 - Math.pow(1 - progress, 4); 
+        obj.innerHTML = Math.floor(easeOut * (end - start) + start).toString();
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          obj.innerHTML = end.toString(); // Ensure exact final number
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counters = entry.target.querySelectorAll('.counter');
+          counters.forEach(el => {
+            const attr = el.getAttribute('data-target');
+            const target = attr ? parseInt(attr, 10) : 0;
+            if (!isNaN(target)) {
+              animateValue(el as HTMLElement, 0, target, 2000);
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  });
+</script>
+
+<style>
+  .stats-section {
+    position: relative;
+    z-index: 10;
+    margin-top: -80px; /* Pull up to overlap with hero slightly */
+    padding: 0 20px;
+  }
+  
+  .stats-wrapper {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a1a 100%);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  /* Decorative accent line */
+  .stats-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #ffcc00);
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Divider lines between stats */
+  .stat-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+  
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 182, 6, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+  }
+  
+  .stat-card:hover .stat-icon {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+    box-shadow: 0 10px 20px rgba(255, 182, 6, 0.2);
+  }
+  
+  .stat-icon :global(svg) {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat-value-wrapper {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+  }
+  
+  .stat-suffix {
+    color: var(--primary-color);
+    margin-left: 8px;
+  }
+  
+  .stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  
+  @media (max-width: 992px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 20px;
+    }
+    .stat-card:nth-child(2)::after {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .stats-section {
+      margin-top: 40px;
+      padding: 0 15px;
+    }
+    .stats-wrapper {
+      background: transparent;
+      box-shadow: none;
+      border: none;
+    }
+    .stats-wrapper::before {
+      display: none;
+    }
+    .stat-value-wrapper {
+      color: var(--text-dark, #111111);
+    }
+    .stat-label {
+      color: var(--text-muted, #666666);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .stats-wrapper {
+      padding: 10px 0;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    .stat-card {
+      padding: 30px 10px;
+    }
+    .stat-card:nth-child(1),
+    .stat-card:nth-child(2) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .stat-card:nth-child(odd) {
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .stat-value-wrapper {
+      font-size: 2.2rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+    }
+    .stat-icon {
+      width: 45px;
+      height: 45px;
+      margin-bottom: 10px;
+    }
+    .stat-icon :global(svg) {
+      width: 20px;
+      height: 20px;
+    }
+    .stat-card::after {
+      display: none !important;
+    }
+  }
+</style>

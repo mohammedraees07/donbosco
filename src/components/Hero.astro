@@ -1,0 +1,149 @@
+---
+// src/components/Hero.astro
+---
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-text-box">
+      <span class="hero-subtitle">Growing in Truth and Purity</span>
+      <h1 class="hero-title">Empowering Minds Through <span class="highlight">Education & Innovation</span></h1>
+      <p class="hero-desc">
+        Welcome to Don Bosco English Medium School Shirva. We are dedicated to providing exceptional education and nurturing the holistic development of our students in a dynamic learning environment.
+      </p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary">Discover More</a>
+        <a href="#admissions" class="btn btn-outline hero-btn-outline">Admissions Open</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background-image: url('/hero_new.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    margin-top: 80px; /* Offset for header */
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-left: 80px;
+  }
+  
+  .hero-text-box {
+    max-width: 800px;
+    padding: 0;
+  }
+  
+  .hero-subtitle {
+    color: var(--primary-color);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: block;
+    font-size: 1.1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  }
+  
+  .hero-title {
+    color: var(--text-light);
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  }
+  
+  .highlight {
+    color: var(--primary-color);
+  }
+  
+  .hero-desc {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
+    margin-bottom: 2.5rem;
+    max-width: 90%;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+  }
+  
+  @media (max-width: 992px) {
+    .hero-content {
+      padding-left: 5%;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      background-attachment: scroll; /* Better performance on mobile */
+      background-position: 70% center; /* Adjust focus of image */
+    }
+    .hero-overlay {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.4) 100%);
+    }
+    .hero-content {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-text-box {
+      padding: 0;
+      text-align: center;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+    .hero-desc {
+      max-width: 100%;
+      font-size: 1rem;
+    }
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero-actions .btn {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .hero-btn-outline {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+  }
+  
+  .hero-btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2) !important;
+  }
+</style>

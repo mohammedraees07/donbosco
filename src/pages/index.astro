@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Facilities from '../components/Facilities.astro';
+import About from '../components/About.astro';
+import Principal from '../components/Principal.astro';
+import Gallery from '../components/Gallery.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Collaborations from '../components/Collaborations.astro';
+import Events from '../components/Events.astro';
+import News from '../components/News.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Don Bosco School Shirva | Growing in Truth and Purity">
+	<Header />
+	<main>
+		<Hero />
+		<Stats />
+		<About />
+		<Principal />
+		<Facilities />
+		<Events />
+		<Gallery />
+		<Testimonials />
+		<Collaborations />
+		<News />
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	main {
+		width: 100%;
+		overflow-x: hidden;
+	}
+</style>

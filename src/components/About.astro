@@ -1,0 +1,151 @@
+---
+// src/components/About.astro
+---
+<section id="about" class="about-section section-padding">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrapper">
+        <img src="/about/entrance.jpg" alt="Don Bosco School Entrance Gate" class="about-image" loading="lazy" />
+        <div class="about-badge glass-card">
+          <span class="badge-year">Est. 1983</span>
+          <span class="badge-text">Decades of Excellence</span>
+        </div>
+      </div>
+      
+      <div class="about-content">
+        <span class="section-subtitle">Welcome To Don Bosco School</span>
+        <h2 class="section-title">About Us</h2>
+        <div class="about-text">
+          <p>
+            Well this noble thought of education had a deep-rooted meaning and not a long time ago in 1983, the simple peaceful hamlet of Shirva, woke up to the call for imparting education to the children of the locality through the medium of English.
+          </p>
+          <p>
+            The older folks yearned to see and hear their young ones learn the language, which they had missed and hence found it an obstacle, which many faced in their career when they went to the cities looking for greener pastures.
+          </p>
+          <p>
+            They didn't lose any opportunity of moulding their dreams into a reality. Their dreams, contribution and determination enabled the then Founder Correspondent, Late Rev. Fr. Aloysious Rosario, who also had secretly cherished a vision of establishing an English Medium School in Shirva.
+          </p>
+        </div>
+        
+        <div class="about-actions">
+          <a href="/history" class="btn btn-primary">Read Our Full History</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    background-color: var(--bg-color);
+  }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  .about-image-wrapper {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .about-image {
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-xl);
+    transition: transform var(--transition-slow);
+  }
+  
+  .about-image-wrapper:hover .about-image {
+    transform: scale(1.05);
+  }
+  
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    padding: 20px 30px;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    z-index: 10;
+  }
+  
+  .badge-year {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  
+  .badge-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .about-text {
+    margin-bottom: 40px;
+  }
+  
+  .about-text p {
+    margin-bottom: 20px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 992px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    
+    .about-badge {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-image {
+      min-height: 300px;
+    }
+    .about-badge {
+      padding: 15px 20px;
+      bottom: 10px;
+      right: 10px;
+    }
+    .badge-year {
+      font-size: 1.5rem;
+    }
+    .about-text p {
+      font-size: 1rem;
+    }
+    .about-text p:not(:first-child) {
+      display: none;
+    }
+    .about-actions {
+      text-align: center;
+    }
+    .about-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

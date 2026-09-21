@@ -1,0 +1,125 @@
+---
+// src/components/Collaborations.astro
+const partners = [
+  { src: "/collaborations/1.jpg", alt: "CBSE" },
+  { src: "/collaborations/2.jpg", alt: "Udupi Diocese" },
+  { src: "/collaborations/3.jpg", alt: "CESU" },
+  { src: "/collaborations/4.jpg", alt: "Embibe" },
+  { src: "/collaborations/5.jpg", alt: "Tag-Hive" },
+  { src: "/collaborations/6.jpg", alt: "Xperimentor" },
+  { src: "/collaborations/7.jpg", alt: "Ebix Smartclass" },
+  { src: "/collaborations/8.jpg", alt: "Podac Adventure Club" },
+];
+---
+<section class="collaborations-section section-padding">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-subtitle">Our Partners</span>
+      <h2 class="section-title">We Collaborate With</h2>
+    </div>
+    
+    <div class="marquee-container">
+      <div class="marquee-track">
+        {/* Double the items for seamless loop */}
+        {[...partners, ...partners].map((partner) => (
+          <div class="partner-logo">
+            <img src={partner.src} alt={partner.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .collaborations-section {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .section-header {
+    margin-bottom: 50px;
+  }
+  
+  .marquee-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+  }
+  
+  /* Gradient fade edges */
+  .marquee-container::before,
+  .marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+  }
+  
+  .marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  }
+  
+  .marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  }
+  
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+  
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+  
+  .partner-logo {
+    flex: 0 0 auto;
+    width: 200px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .partner-logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.7);
+    transition: all var(--transition-normal);
+  }
+  
+  .partner-logo:hover img {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.05);
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .partner-logo {
+      width: 150px;
+      padding: 0 15px;
+    }
+    .partner-logo img {
+      max-height: 50px;
+      filter: grayscale(0%) opacity(1); /* Keep colored on mobile for better visibility */
+    }
+  }
+</style>
